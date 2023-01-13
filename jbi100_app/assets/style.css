@@ -1,0 +1,48 @@
+body {
+    background-color: #f9f9f9;
+    color: #333333;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    margin: 0px;
+}
+
+#left-column {
+    padding: 20px 2rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#right-column {
+    background-color: #f4f4f4;
+    padding: 0rem 2rem;
+    min-height: 100vh;
+}
+
+h5 {
+    color: #2c8cff;
+    font-weight: 300;
+}
+
+#intro {
+    margin: 20px 0px;
+    text-align: justify;
+}
+
+#control-card label {
+    font-weight: bold;
+}
+
+.graph_card {
+    background-color: white;
+    border-radius: 0.675rem;
+    padding: 1rem;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.graph_card h6 {
+    margin:  0 7px;
+    padding-bottom: 7px;
+    border-bottom:  1px solid #ccc;
+}
