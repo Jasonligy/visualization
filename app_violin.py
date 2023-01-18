@@ -52,7 +52,7 @@ app.layout = html.Div(
                 options=[{'label': i, 'value': i} for i in y_features],
                 value=y_features[0]
             ),
-        , ],),
+        ],)
             dcc.Graph(id="graph-with-rangeslider"),
             dcc.RangeSlider(
                 id='my-range-slider',
