@@ -1,13 +1,25 @@
-import random
+import pandas as pd
+import numpy as np
+import os
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import seaborn as sns
 import dash
-import dash_html_components as html
-import dash_core_components as dcc
+import plotly
+import plotly.express as px
+import plotly.graph_objects as go
+from dash import Dash, dcc, html, Input, Output
+from re import sub
+from decimal import Decimal
+import plotly.figure_factory as ff
 from jupyter_dash import JupyterDash
+
+
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-df = pd.read_csv('Airbnb_2.csv')
+df = pd.read_csv('preprocessed.csv')
 df = df[df.availability_365 < 1000] # remove outlier
-# app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-app = JupyterDash(__name__)
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+# app = JupyterDash(__name__)
 construct_year_list = df[df['construction_year'].notna()]['construction_year'].sort_values().unique()
 
 # 前台畫面設定
@@ -23,9 +35,9 @@ app.layout = html.Div([
         # slider的id，後台辨識用的
         id='year-slider',        
         # 使用者能夠拖曳slider最小值
-        min=df['construction_year'].min(),
+        min=df['age'].min(),
         # 使用者能夠拖曳slider最大值
-        max=df['construction_year'].max(),
+        max=df['age'].max(),
         # slider的默認值
         value = df.construction_year.min(),
         # value=[df['construction_year'].min(), df['construction_year'].median()],
@@ -69,7 +81,7 @@ def update_figure(selected_year,yaxis_type):
     # filtered_df0 = df[df.construction_year > selected_year[0]]
     # filtered_df1 = df[df.construction_year < selected_year[1]]
     # filtered_df = pd.concat([filtered_df0,filtered_df1])
-    filtered_df = df[df.construction_year == float(selected_year)]
+    filtered_df = df[df.age == float(selected_year)]
     # filtered_df = df[df.construction_year == selected_year[1]]
     # 選取前台使用者選取的年份
     # filtered_df0 = df[df.construction_year == selected_year[0]] # defeault min
@@ -118,5 +130,5 @@ def update_figure(selected_year,yaxis_type):
 
 
 if __name__ == '__main__':
-    # app.run_server(debug=True)
-    app.run_server(mode='inline', port=8051)
+    app.run_server(debug=True)
+    # app.run_server(mode='inline', port=8051)
