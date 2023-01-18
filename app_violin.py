@@ -20,7 +20,7 @@ df = pd.read_csv('preprocessed.csv')
 df = df[df.availability_365 < 1000] # remove outlier
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 # app = JupyterDash(__name__)
-construct_year_list = df[df['construction_year'].notna()]['construction_year'].sort_values().unique()
+construct_year_list = df[df['age'].notna()]['age'].sort_values().unique()
 
 # 前台畫面設定
 # Dash-前台：設定Dash的版面(app.layout)
@@ -39,7 +39,7 @@ app.layout = html.Div([
         # 使用者能夠拖曳slider最大值
         max=df['age'].max(),
         # slider的默認值
-        value = df.construction_year.min(),
+        value = df.age.min(),
         # value=[df['construction_year'].min(), df['construction_year'].median()],
         # slider的選項名稱
         marks = {str(year): str(year) for year in construct_year_list.astype(int)},
