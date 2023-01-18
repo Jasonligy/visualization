@@ -77,7 +77,7 @@ app.layout = html.Div([
 def update_figure(selected_year,yaxis_type):
     
     fig = go.Figure()
-    print(selected_year)
+    # print(selected_year)
     # filtered_df0 = df[df.construction_year > selected_year[0]]
     # filtered_df1 = df[df.construction_year < selected_year[1]]
     # filtered_df = pd.concat([filtered_df0,filtered_df1])
