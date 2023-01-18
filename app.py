@@ -8,7 +8,7 @@ import plotly.express as px
 from dash.dependencies import Input, Output
 
 
-from Airbnb.test import target_graph,data
+from Airbnb.column import target_graph,data
 from dash import html,dcc
 import plotly.express as px
 from dash.dependencies import Input, Output
@@ -30,7 +30,7 @@ class Histogramplot(html.Div):
 
     def update(self, value):
         self.fig = go.Figure()
-        self.fig.update_layout(dcc.Graph(figure=target_graph(value)))
+        self.fig.update_layout(dcc.Graph(figure=target_graph(value)),bargap=0,width=600,bargroupgap=1.0)
         return  dcc.Graph(figure=target_graph(value))
 
 
