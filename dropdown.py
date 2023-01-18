@@ -112,7 +112,7 @@ def target_graph(type):
     # viz_3=sns.catplot(x='neighbourhood', hue='neighbourhood_group', col='room_type', data=room_type[type], kind='count')
     # viz_3.set_xticklabels(rotation=90)
     fig = px.histogram(room_type[type], x="neighbourhood", color="neighbourhood_group",
-                       color_discrete_sequence=['blue', 'red'], width=600, facet_col_spacing=0.5)
+                       color_discrete_sequence=['blueviolet', 'orange'], facet_col_spacing=0.5)
 
     return fig
 
@@ -160,7 +160,7 @@ if __name__ == '__main__':
     app.layout = html.Div(
         id="app-container",
         children=[
-
+            html.P('Please select following room type: '),
             html.Div(id='dropdown',
                 
                 
