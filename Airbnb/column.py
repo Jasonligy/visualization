@@ -113,7 +113,7 @@ room_type = {'Entire home':entire_room ,'Private room':Private_room,'Shared room
 def target_graph(type):
     # viz_3=sns.catplot(x='neighbourhood', hue='neighbourhood_group', col='room_type', data=room_type[type], kind='count')
     # viz_3.set_xticklabels(rotation=90)
-    fig = px.histogram(room_type[type], x="neighbourhood", color="neighbourhood_group")
+    fig = px.histogram(room_type[type], x="neighbourhood", color="neighbourhood_group",color_discrete_sequence=['blue','red'],width=600)
     
     return fig
 def data():
