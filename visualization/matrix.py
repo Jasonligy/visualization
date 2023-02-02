@@ -15,7 +15,7 @@ app = Dash(__name__)
 
 def heatmap():
     corr = filtered_data.corr(method='kendall')*10
-    mask = np.triu(np.ones_like(corr, dtype=np.bool))
+    mask = np.triu(np.ones_like(corr, dtype=np.bool_))
     corr_tri = corr.mask(mask).to_numpy().round(2)
     fig = px.imshow(corr_tri,
                     labels=dict(color="Correlation"),
