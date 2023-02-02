@@ -14,8 +14,12 @@ min_max_scalar = preprocessing.MinMaxScaler(feature_range=(0,1))
 map_data = airbnb[features]
 map_data['price_distribution'] = min_max_scalar.fit_transform(map_data['nei_price'].values.reshape(-1,1))
 map_data['age_distribution'] = min_max_scalar.fit_transform(map_data['age'].values.reshape(-1,1))
+mean_ava = map_data['availability_365'].mean()
+sd = map_data['availability_365'].std()
+map_data = map_data[(map_data['availability_365'] <= mean_ava+(3*sd))]
 map_data['availability_distribution'] = min_max_scalar.fit_transform(map_data['availability_365'].values.reshape(-1,1))
 
+# map_data['availability_distribution'] = min_max_scalar.fit_transform(map_data['availability_365'].values.reshape(-1,1))
 
 app = Dash(__name__)
 
@@ -50,9 +54,3 @@ def display_choropleth(candidate):
 
 if __name__ == '__main__':
     app.run_server(debug=True)
-
-
-
-
-
-

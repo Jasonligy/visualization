@@ -43,12 +43,18 @@ airbnb = pd.read_csv('preprocessed.csv')
 features = ["nei_price", "age", "availability_365", 'lat', 'long']
 min_max_scalar = preprocessing.MinMaxScaler(feature_range=(0, 1))
 map_data = airbnb[features]
+# for avaiablity
+mean_ava = map_data['availability_365'].mean()
+sd = map_data['availability_365'].std()
+map_data = map_data[(map_data['availability_365'] <= mean_ava+(3*sd))] # fitler outlier row
+
+map_data['availability_distribution'] = min_max_scalar.fit_transform(
+    map_data['availability_365'].values.reshape(-1, 1))
 map_data['price_distribution'] = min_max_scalar.fit_transform(
     map_data['nei_price'].values.reshape(-1, 1))
 map_data['age_distribution'] = min_max_scalar.fit_transform(
     map_data['age'].values.reshape(-1, 1))
-map_data['availability_distribution'] = min_max_scalar.fit_transform(
-    map_data['availability_365'].values.reshape(-1, 1))
+
 
 ##################### data of word freq###################
 word_freq = pd.read_csv('preprocessed.csv',low_memory=False)
