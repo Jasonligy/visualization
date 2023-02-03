@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 from dash import dcc
 
 
+# 
 def get_data():
     airbnb = pd.read_csv('./preprocessed.csv',low_memory=False)
     airbnb.columns=[col.lower().replace(" ","_") for col in airbnb.columns]

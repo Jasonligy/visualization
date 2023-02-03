@@ -13,9 +13,7 @@ us_cities = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/maste
 
 
 app = Dash(__name__)
-
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 
