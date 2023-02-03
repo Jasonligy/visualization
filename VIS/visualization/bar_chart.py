@@ -138,7 +138,7 @@ def data():
 # print(room_type)
 # target_graph('Private room')
 
-
+#Histogram for the distribution of room type among neighborhoods
 class Histogramplot(html.Div):
     def __init__(self, name, feature_x, feature_y, df):
         self.html_id = name.lower().replace(" ", "-")
@@ -153,7 +153,7 @@ class Histogramplot(html.Div):
                 dcc.Graph(figure=target_graph('Private room'))
             ],
         )
-
+#Interaction operation for selecting the target room type
     def update(self, value):
         # self.fig = go.Figure()
         # self.fig.update_layout(dcc.Graph(figure=target_graph(value)),bargap=0,width=600,bargroupgap=1.0)
