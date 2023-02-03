@@ -1,9 +1,5 @@
 from dash import Dash, dcc, html, Input, Output
-
 import pandas as pd
-
-import plotly.express as px
-from dash import Dash, dcc, html, Input, Output
 from radar_plot import radar_fig
 
 ''' Map
@@ -13,24 +9,24 @@ us_cities = pd.read_csv("https://raw.githubusercontent.com/plotly/datasets/maste
 
 
 app = Dash(__name__)
-
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-
 app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 
 '''
-LAYOUT
+LAYOUT for radar map
 '''
 
 app.layout = html.Div([
     html.Div([
+        # multiselect dropdown 
         dcc.Dropdown(
         ['Overall', 'Manhattan', 'Brooklyn', 'Queens', 'Staten Island', 'Bronx'],
         multi=True,
         id='radar-neighborhood-select',
         value = ['Overall']
         ),
+        # radiobutton
         dcc.RadioItems(
             ['Mean', 'Median'],
             'Median',
@@ -38,11 +34,12 @@ app.layout = html.Div([
             inline=True
         ),
     ]),
-    
+    # radar graph
     dcc.Graph(id='radar-plot', figure=radar_fig(neighbours=['Manhattan'])),
 ])
 radar = app.layout
 
+# callback that updates the radar plot
 @app.callback(
     Output(component_id='radar-plot', component_property='figure'),
     Input(component_id='radar-neighborhood-select', component_property='value'),

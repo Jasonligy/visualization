@@ -4,7 +4,6 @@ import pandas as pd
 import nltk
 import re
 from collections import Counter
-import plotly.express as px
 import plotly.graph_objects as go
 from dash import dcc
 
@@ -13,6 +12,7 @@ airbnb.columns=[col.lower().replace(" ","_") for col in airbnb.columns]
 
 def get_word_freq(top_n:int=20, style:dict=None) -> dcc.Graph:
 
+    # splitting words
     text = ''
     for sentence in airbnb.house_rules.values:
         text += (' ' + str(sentence))
@@ -21,6 +21,7 @@ def get_word_freq(top_n:int=20, style:dict=None) -> dcc.Graph:
     words = re.sub("[^A-Za-z]"," ",lower_text).split() #remove punctuation, then split by space.
     len(words)
 
+    # NLTK stopwords plus our own choices   
     nltk.download("stopwords")
     custom_sw = [
         'nan', 'keep', 
@@ -29,11 +30,13 @@ def get_word_freq(top_n:int=20, style:dict=None) -> dcc.Graph:
         ]
     sw = nltk.corpus.stopwords.words('english') + custom_sw
 
+    # filter stopwords
     words_ne=[]
     for word in words:
         if word not in sw:
             words_ne.append(word)
 
+    # integrate the word list 
     counts = Counter(words_ne)
     df = pd.DataFrame.from_dict(counts, orient='index').reset_index()
     df.columns = ['word', 'count']
@@ -42,6 +45,7 @@ def get_word_freq(top_n:int=20, style:dict=None) -> dcc.Graph:
     y= list(df.iloc[:top_n,:]['word'].values)
     x= list(df.iloc[:top_n,:]['count'].values)
 
+    # Build bar chart for displaying the word frequency
     fig = go.Figure()
     fig.add_trace(go.Bar(
         y= y,
@@ -65,12 +69,13 @@ def get_word_freq(top_n:int=20, style:dict=None) -> dcc.Graph:
         # yaxis_title="Y Axis Title",
     )
 
-
     return dcc.Graph(figure=fig, style= style)
 
 
-
 def get_cancellation_policy(style: dict = None) -> dcc.Graph:
+    '''
+    Produce the pie chart for cancellation policy
+    '''
 
     cancellation_count = airbnb['cancellation_policy'].value_counts()
     colors = [ 'royalblue', 'darkblue','lightcyan',]
